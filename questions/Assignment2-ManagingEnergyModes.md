@@ -64,9 +64,9 @@ LED measurement - LED on time
 [em1_avg_current_ledoff]: screenshots/em1_avg_current_ledoff.png "em1_avg_current_ledoff"
 [em1_avg_current_ledon]: screenshots/em1_avg_current_ledon.png "em1_avg_current_ledon"
 
-[em2_avg_current_period]: screenshots/em2_avg_current_period.png "em2_avg_current_period"
-[em2_avg_current_ledoff]: screenshots/em2_avg_current_ledoff.png "em2_avg_current_ledoff"
-[em2_avg_current_ledon]: screenshots/em2_avg_current_ledon.png "em2_avg_current_ledon"
+[em2_avg_current_period]: screenshots/EM2_avg_current_period.png "em2_avg_current_period"
+[em2_avg_current_ledoff]: screenshots/EM2_avg_current_ledoff.png "em2_avg_current_ledoff"
+[em2_avg_current_ledon]: screenshots/EM2_avg_current_ledon.png "em2_avg_current_ledon"
 [em2_led_period]: screenshots/em2_led_period.png "em2_led_period"
 [em2_led_ledOnTime]: screenshots/em2_led_ledOnTime.png "em2_led_ledOnTime"
 
