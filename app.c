@@ -53,6 +53,12 @@
 #include "src/ble_device_type.h"
 #include "src/gpio.h"
 #include "src/lcd.h"
+#include "em_cmu.h"
+#include "src/oscillators.h"
+#include "src/timers.h"
+#include "src/irq.h"
+#include <stdint.h>
+#include "app.h"
 
 
 
@@ -68,8 +74,12 @@
 //   up the MCU from the call to sl_power_manager_sleep() in the main while (1)
 //   loop.
 // Students: We'll need to modify this for A2 onward.
+// If energy mode is EM0 APP_IS_OK_TO_SLEEP = false, else true
+#if LOWEST_ENERGY_MODE
+#define APP_IS_OK_TO_SLEEP      (true)
+#else
 #define APP_IS_OK_TO_SLEEP      (false)
-//#define APP_IS_OK_TO_SLEEP      (true)
+#endif
 
 // Return values for app_sleep_on_isr_exit():
 //   SL_POWER_MANAGER_IGNORE; // The module did not trigger an ISR and it doesn't want to contribute to the decision
@@ -152,11 +162,17 @@ SL_WEAK void app_init(void)
   // This is called once during start-up.
   // Don't call any Bluetooth API functions until after the boot event.
 
-
-  // Student Edit: Add a call to gpioInit() here
   gpioInit();
+  oscillatorInit();
+  low_energy_timerInit();
+  letimer0_irq_init();
 
-
+  if (LOWEST_ENERGY_MODE == 1) {
+    sl_power_manager_add_em_requirement(SL_POWER_MANAGER_EM1);
+  }
+  else if (LOWEST_ENERGY_MODE == 2) {
+    sl_power_manager_add_em_requirement(SL_POWER_MANAGER_EM2);
+  }
 
 
 }
@@ -168,15 +184,15 @@ SL_WEAK void app_init(void)
  * comment out this function. Wait loops are a bad idea in general.
  * We'll discuss how to do this a better way in the next assignment.
  *****************************************************************************/
-static void delayApprox(int delay)
-{
-  volatile int i;
-
-  for (i = 0; i < delay; ) {
-      i=i+1;
-  }
-
-} // delayApprox()
+//static void delayApprox(int delay)
+//{
+//  volatile int i;
+//
+//  for (i = 0; i < delay; ) {
+//      i=i+1;
+//  }
+//
+//} // delayApprox()
 
 
 
@@ -191,15 +207,15 @@ SL_WEAK void app_process_action(void)
   // Notice: This function is not passed or has access to Bluetooth stack events.
   //         We will create/use a scheme that is far more energy efficient in
   //         later assignments.
+  //delayApprox(3500000);
 
-  delayApprox(3500000);
-
-  gpioLed0SetOn();
+  //gpioLed0SetOn();
   //gpioLed1SetOn();
 
-  delayApprox(3500000);
 
-  gpioLed0SetOff();
+  //delayApprox(3500000);
+
+ // gpioLed0SetOff();
   //gpioLed1SetOff();
 
 }
