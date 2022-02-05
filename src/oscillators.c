@@ -38,7 +38,7 @@ void oscillatorInit(void)
       /* Enable and set LFXO for LFACLK */
       CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFXO);
 
-      /* Clock frequency divided by 1: 32768/4 = 16384 Hz to extend timer period*/
+      /* Clock frequency divided by 2: 32768/2 = 16384 Hz to extend timer period*/
       CMU_ClockDivSet(cmuClock_LETIMER0, cmuClkDiv_2);
 
       CMU_ClockEnable(cmuClock_LFA, true);
