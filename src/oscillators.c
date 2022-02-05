@@ -1,4 +1,4 @@
-/**
+/*
 * File Name: oscillators.c
 * File Description: This file contains the oscillators functions
 * File Author: Gautama Gandhi
@@ -39,7 +39,7 @@ void oscillatorInit(void)
       CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFXO);
 
       /* Clock frequency divided by 4: 32768/4 = 8192 Hz to extend timer period to 7 seconds*/
-      CMU_ClockDivSet(cmuClock_LETIMER0, cmuClkDiv_4);
+      CMU_ClockDivSet(cmuClock_LETIMER0, cmuClkDiv_2);
 
       CMU_ClockEnable(cmuClock_LFA, true);
       CMU_ClockEnable(cmuClock_LETIMER0, true);

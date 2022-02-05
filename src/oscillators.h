@@ -1,4 +1,4 @@
-/**
+/*
 * File Name: oscillators.h
 * File Description: This file contains declarations for function in oscillators.c
 * File Author: Gautama Gandhi

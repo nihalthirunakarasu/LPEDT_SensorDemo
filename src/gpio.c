@@ -55,8 +55,6 @@ void gpioInit()
 	// GPIO_DriveStrengthSet(LED1_port, gpioDriveStrengthWeakAlternateWeak);
 	GPIO_PinModeSet(LED1_port, LED1_pin, gpioModePushPull, false);
 
-
-
 } // gpioInit()
 
 
@@ -83,7 +81,17 @@ void gpioLed1SetOff()
 	GPIO_PinOutClear(LED1_port,LED1_pin);
 }
 
+/*Enable Si7021 sensor by turning on GPIO Port D Pin 15*/
+void Si7021Enable()
+{
+  GPIO_PinOutSet(gpioPortD, 15);
+}
 
+/*Disable Si7021 sensor by turning off GPIO Port D Pin 15*/
+void Si7021Disable()
+{
+  GPIO_PinOutClear(gpioPortD, 15);
+}
 
 
 

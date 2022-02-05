@@ -1,4 +1,4 @@
-/**
+/*
 * File Name: irq.c
 * File Description: This file contains the interrupt related functions
 * File Author: Gautama Gandhi
@@ -9,6 +9,7 @@
 #include "em_letimer.h"
 #include "src/gpio.h"
 #include <stdint.h>
+#include "src/scheduler.h"
 
 /*
  * Function Name: letimer0_irq_init
@@ -24,8 +25,8 @@
  */
 void letimer0_irq_init(void)
 {
-  /*Enabling LETIMER interrupt for UF (underflow) and COMP1 (Comparator 1)*/
-  LETIMER_IntEnable(LETIMER0, LETIMER_IEN_UF | LETIMER_IEN_COMP1);
+  /*Enabling LETIMER interrupt for UF (underflow)*/
+  LETIMER_IntEnable(LETIMER0, LETIMER_IEN_UF);
   NVIC_ClearPendingIRQ (LETIMER0_IRQn);
   NVIC_EnableIRQ(LETIMER0_IRQn);
 }
@@ -47,10 +48,9 @@ void LETIMER0_IRQHandler(void)
   /* Storing and clearing current LETIMER0 interrupt flags*/
   uint32_t flags = LETIMER_IntGetEnabled(LETIMER0);
   LETIMER_IntClear(LETIMER0, flags);
-  if (flags & LETIMER_IF_COMP1) { /* Turn LED0 On for COMP1 interrupt */
-      gpioLed0SetOn();
+
+  if (flags & LETIMER_IF_UF) { /* Call schedulerSetEventUF for UF interrupt */
+      schedulerSetEventUF();
   }
-  else if (flags & LETIMER_IF_UF) { /* Turn LED0 Off for UF interrupt */
-      gpioLed0SetOff();
-  }
+
 }

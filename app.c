@@ -57,8 +57,10 @@
 #include "src/oscillators.h"
 #include "src/timers.h"
 #include "src/irq.h"
+#include "src/i2c.h"
 #include <stdint.h>
 #include "app.h"
+#include "src/scheduler.h"
 
 
 
@@ -207,16 +209,17 @@ SL_WEAK void app_process_action(void)
   // Notice: This function is not passed or has access to Bluetooth stack events.
   //         We will create/use a scheme that is far more energy efficient in
   //         later assignments.
-  //delayApprox(3500000);
 
-  //gpioLed0SetOn();
-  //gpioLed1SetOn();
+  uint32_t evt;
 
+  evt = getNextEvent();
 
-  //delayApprox(3500000);
+  switch(evt) {
 
- // gpioLed0SetOff();
-  //gpioLed1SetOff();
+    case evtLETIMER0_UF:
+      read_temperature_Si7021();
+      break;
+  }
 
 }
 
