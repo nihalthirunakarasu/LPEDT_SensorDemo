@@ -54,6 +54,9 @@ void gpioInit()
 	GPIO_DriveStrengthSet(LED1_port, gpioDriveStrengthStrongAlternateStrong);
 	// GPIO_DriveStrengthSet(LED1_port, gpioDriveStrengthWeakAlternateWeak);
 	GPIO_PinModeSet(LED1_port, LED1_pin, gpioModePushPull, false);
+	
+	// Setting mode for GPIO Port D Pin 15 to be used as Sensor Enable
+	GPIO_PinModeSet(gpioPortD, 15, gpioModePushPull, false);
 
 } // gpioInit()
 
