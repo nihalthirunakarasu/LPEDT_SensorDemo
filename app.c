@@ -169,6 +169,8 @@ SL_WEAK void app_init(void)
   low_energy_timerInit();
   letimer0_irq_init();
 
+  LOG_INFO("\n\n\rStarting new program\n\n\r");
+
   if (LOWEST_ENERGY_MODE == 1) {
     sl_power_manager_add_em_requirement(SL_POWER_MANAGER_EM1);
   }
@@ -217,7 +219,9 @@ SL_WEAK void app_process_action(void)
   switch(evt) {
 
     case evtLETIMER0_UF:
-      read_temperature_Si7021();
+      read_max_17048();
+      read_BME680();
+      read_grid_eye();
       break;
   }
 

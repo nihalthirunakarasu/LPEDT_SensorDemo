@@ -21,6 +21,10 @@
  * Celsius from the Si7021 sensor. The temperature values are logged onto UART.
  *
  */
-void read_temperature_Si7021(void);
+void read_BME680(void);
+
+void read_max_17048(void);
+
+void read_grid_eye(void);
 
 #endif /* SRC_I2C_H_ */
