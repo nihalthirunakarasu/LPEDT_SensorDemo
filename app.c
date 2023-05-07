@@ -57,10 +57,11 @@
 #include "src/oscillators.h"
 #include "src/timers.h"
 #include "src/irq.h"
-#include "src/i2c.h"
+//#include "src/i2c.h"
 #include <stdint.h>
 #include "app.h"
 #include "src/scheduler.h"
+#include "src/bme680.h"
 
 
 
@@ -168,6 +169,9 @@ SL_WEAK void app_init(void)
   oscillatorInit();
   low_energy_timerInit();
   letimer0_irq_init();
+  i2c_Init();
+  grid_eye_init();
+  get_calibration_parameters();
 
   LOG_INFO("\n\n\rStarting new program\n\n\r");
 
@@ -219,9 +223,11 @@ SL_WEAK void app_process_action(void)
   switch(evt) {
 
     case evtLETIMER0_UF:
-      read_max_17048();
+//      read_max_17048();
       read_BME680();
-      read_grid_eye();
+//      read_temp();
+//      read_grid_eye();
+//      grid_eye_te mp_test();
       break;
   }
 
@@ -238,7 +244,7 @@ SL_WEAK void app_process_action(void)
  *****************************************************************************/
 void sl_bt_on_event(sl_bt_msg_t *evt)
 {
-  
+
   // Just a trick to hide a compiler warning about unused input parameter evt.
   (void) evt;
 
@@ -249,8 +255,8 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
 
   // sequence through states driven by events
   // state_machine(evt);    // put this code in scheduler.c/.h
-  
-  
-   
+
+
+
 } // sl_bt_on_event()
 
